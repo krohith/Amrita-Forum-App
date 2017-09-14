@@ -18,3 +18,42 @@ DBSession = sessionmaker(bind=engine)
 # session.rollback()
 session = DBSession()
 
+#addUsers
+
+User1 = Users(name = "Rohith Kasthuri",roll="CB.EN.U4CSE16046",password="AskAmrita",privilage=1)
+
+session.add(User1)
+
+User2 = Users(name = "Siva Subramani",roll="CB.EN.U4CSE16053",password="AskAmrita",privilage=1)
+session.add(User2)
+
+User3 = Users(name = "Sanath Kumar",roll="CB.EN.U4CSE16048",password="AskAmrita",privilage=0)
+
+session.add(User3)
+#addClubs
+Club1 = Clubs(name = "t{know}")
+session.add(Club1)
+Club2 = Clubs(name = "ASCII")
+session.add(Club2)
+Club3 = Clubs(name = "Srishti")
+session.add(Club3)
+#Subscriptions
+subscription1 = Subscription(value = 1,user_id =1,club_id =1)
+session.add(subscription1)
+subs2 = Subscription(value = 1,user_id = 1,club_id =2)
+session.add(subs2)
+subs3 = Subscription(value = 1,user_id = 2,club_id = 3)
+session.add(subs3)
+session.commit()
+#UserPost
+post1 = Post(content = "Welcome to Amrita Forum",likes=1,user_id=1)
+session.add(post1)
+session.commit()
+#UserComment
+comment1 = Comment(content = "Hello!",user_id=2,post_id=1,likes=1)
+session.add(comment1)
+session.commit()
+#ClubPost
+Cpost1 = ClubPost(content = "First Post of t{know}",user_id=1,club_id=1,likes=2)
+session.add(Cpost1)
+session.commit()

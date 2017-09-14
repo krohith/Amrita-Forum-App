@@ -14,8 +14,9 @@ class Users(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(25))
-    rollno = Column(String(16))
-
+    roll = Column(String(17), nullable="false")
+    password = Column(String(16), nullable="false")
+    privilage = Column(Integer)
 
 class Clubs(Base):
     __tablename__ = 'clubs'
@@ -54,7 +55,7 @@ class Comment(Base):
     likes = Column(Integer)
     users = relationship(Users)
     post = relationship(Post)
-
+    
 
 class ClubPost(Base):
     __tablename__ = 'clubpost'
@@ -64,7 +65,7 @@ class ClubPost(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     likes = Column(Integer)
     users = relationship(Users)
-    club_id = Column(Integer,ForeignKey('clubs.id'))
-
+    club_id = Column(Integer, ForeignKey('clubs.id'))
+    clubs = relationship(Clubs)
 engine = create_engine('sqlite:///forum.db')
 Base.metadata.create_all(engine)
