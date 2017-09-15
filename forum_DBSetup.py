@@ -16,7 +16,8 @@ class Users(Base):
     name = Column(String(25))
     roll = Column(String(17), nullable="false")
     password = Column(String(16), nullable="false")
-    privilage = Column(Integer)
+    privilege = Column(Integer)
+
 
 class Clubs(Base):
     __tablename__ = 'clubs'
@@ -38,10 +39,11 @@ class Post(Base):
     __tablename__ = 'post'
 
     id = Column(Integer, primary_key=True)
-    content = Column(String(1000))
+    content = Column(String(1000), nullable="false")
     user_id = Column(Integer, ForeignKey('users.id'))
     likes = Column(Integer)
     users = relationship(Users)
+    created_date = Column(String(30))
 
 
 class Comment(Base):
@@ -49,7 +51,7 @@ class Comment(Base):
 
     id = Column(Integer, primary_key=True)
     content = Column(String(250), nullable="false")
-    created_date = Column(DateTime, default=datetime.datetime.utcnow)
+    created_date = Column(String(30))
     user_id = Column(Integer, ForeignKey('users.id'))
     post_id = Column(Integer, ForeignKey('post.id'))
     likes = Column(Integer)
@@ -61,11 +63,26 @@ class ClubPost(Base):
     __tablename__ = 'clubpost'
 
     id = Column(Integer, primary_key=True)
-    content = Column(String(1000))
+    content = Column(String(1000), nullable="false")
+    created_date = Column(String(30))
     user_id = Column(Integer, ForeignKey('users.id'))
     likes = Column(Integer)
     users = relationship(Users)
     club_id = Column(Integer, ForeignKey('clubs.id'))
     clubs = relationship(Clubs)
+
+
+class ClubComment(Base):
+    __tablename__ = 'clubcomment'
+    id = Column(Integer, primary_key=True)
+    content = Column(String(250), nullable="false")
+    created_date = Column(String(30))
+    user_id = Column(Integer, ForeignKey('users.id'))
+    clubpost_id = Column(Integer, ForeignKey('clubpost.id'))
+    likes = Column(Integer)
+    users = relationship(Users)
+    clubpost = relationship(ClubPost)
+
+
 engine = create_engine('sqlite:///forum.db')
 Base.metadata.create_all(engine)
