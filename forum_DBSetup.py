@@ -17,7 +17,15 @@ class Users(Base):
     roll = Column(String(17), nullable="false")
     password = Column(String(16), nullable="false")
     privilege = Column(Integer)
-
+    @property
+    def serialize(self):
+        return {
+            'name':self.name,
+            'roll':self.roll,
+            'id' : self.id,
+            'password':self.password,
+            'privilege':self.privilege,
+        }
 
 class Clubs(Base):
     __tablename__ = 'clubs'
@@ -44,8 +52,16 @@ class Post(Base):
     likes = Column(Integer)
     users = relationship(Users)
     created_date = Column(String(30))
+    @property
+    def serialize(self):
+        return {
+            'id':self.id,
+            'content':self.content,
+            'user_id':self.user_id,
+            'likes':self.likes,
+        }
 
-
+    
 class Comment(Base):
     __tablename__ = 'comment'
 
