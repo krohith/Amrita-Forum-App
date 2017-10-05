@@ -17,20 +17,29 @@ class Users(Base):
     roll = Column(String(17), nullable="false")
     password = Column(String(16), nullable="false")
     privilege = Column(Integer)
+
     @property
     def serialize(self):
         return {
-            'name':self.name,
-            'roll':self.roll,
-            'id' : self.id,
-            'password':self.password,
-            'privilege':self.privilege,
+            'name': self.name,
+            'roll': self.roll,
+            'id': self.id,
+            'password': self.password,
+            'privilege': self.privilege,
         }
+
 
 class Clubs(Base):
     __tablename__ = 'clubs'
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
 
 
 class Subscription(Base):
@@ -42,6 +51,15 @@ class Subscription(Base):
     users = relationship(Users)
     clubs = relationship(Clubs)
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'club_id': self.club_id,
+            'user_id': self.user_id
+
+        }
+
 
 class Post(Base):
     __tablename__ = 'post'
@@ -52,16 +70,17 @@ class Post(Base):
     likes = Column(Integer)
     users = relationship(Users)
     created_date = Column(String(30))
+
     @property
     def serialize(self):
         return {
-            'id':self.id,
-            'content':self.content,
-            'user_id':self.user_id,
-            'likes':self.likes,
+            'id': self.id,
+            'content': self.content,
+            'user_id': self.user_id,
+            'likes': self.likes,
         }
 
-    
+
 class Comment(Base):
     __tablename__ = 'comment'
 
@@ -73,7 +92,18 @@ class Comment(Base):
     likes = Column(Integer)
     users = relationship(Users)
     post = relationship(Post)
-    
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'content': self.content,
+            'created_date': self.created_date,
+            'user_id': self.user_id,
+            'post_id': self.post_id,
+            'likes': self.likes,
+        }
+
 
 class ClubPost(Base):
     __tablename__ = 'clubpost'
@@ -87,6 +117,17 @@ class ClubPost(Base):
     club_id = Column(Integer, ForeignKey('clubs.id'))
     clubs = relationship(Clubs)
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'content': self.content,
+            'created_date': self.created_date,
+            'user_id': self.user_id,
+            'likes': self.likes,
+            'club_id': self.club_id,
+        }
+
 
 class ClubComment(Base):
     __tablename__ = 'clubcomment'
@@ -99,6 +140,16 @@ class ClubComment(Base):
     users = relationship(Users)
     clubpost = relationship(ClubPost)
 
+    @property
+    def serialize(self):
+        return{
+            'id': self.id,
+            'content': self.content,
+            'created_date': self.created_date,
+            'user_id': self.user_id,
+            'likes': self.likes,
+            'clubpost_id': self.club_id,
+        }
 
 engine = create_engine('sqlite:///forum.db')
 Base.metadata.create_all(engine)
