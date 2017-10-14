@@ -57,7 +57,7 @@ def like(u_id, p_id):
 def login():
     data = request.json
     print data
-    isthere = session.query(Users).filter_by(roll=data['roll']).one()
+    isthere = session.query(Users).filter_by(roll=data['roll']).first()
 
     if isthere is None:
         return jsonify({"value": 0})
