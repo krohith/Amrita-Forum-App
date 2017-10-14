@@ -53,6 +53,19 @@ def like(u_id, p_id):
         pos = session.query(Post).filter_by(user_id=u_id).all()
         return jsonify(posts=[i.serialize for i in pos])
 
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    print data
+    isthere = session.query(Users).filter_by(roll=data['roll']).one()
+
+    if isthere is None:
+        return jsonify({"value": 0})
+    elif isthere.password == data['password']:
+        return jsonify({"value": 1})
+    else:
+        return jsonify({"value": 0})
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8080)
