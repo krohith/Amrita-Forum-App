@@ -19,14 +19,24 @@ def ksers():
     return jsonify(members=[i.serialize for i in users])
 
 
-@app.route('/subscription/<int:ids>/JSON')
+@app.route('/subscription/<ids>/JSON')
 def display(ids):
-    clubs = session.query(Subscription.club_id).filter_by(user_id=ids, value=1).all()
+    print ids
+    user = session.query(Users).filter_by(roll=ids).one()
+    clubs = session.query(Subscription.club_id).filter_by(user_id=user.id, value=1).all()
     post = []
+    club = []
+    username = []
+    print len(clubs)
     for i in clubs:
         post.append(session.query(ClubPost).filter_by(club_id=i[0]).all())
-
-    return jsonify(post=[k.serialize for p in post for k in p])
+        c_id=session.query(ClubPost.club_id).filter_by(club_id=i[0]).all()
+        useid = session.query(ClubPost.user_id).filter_by(club_id=i[0]).all()
+        for u in useid:
+            username.append(session.query(Users.name).filter_by(id=u[0]).one())
+        for c in c_id:
+            club.append(session.query(Clubs.name).filter_by(id=c[0]).one())
+    return jsonify(post=[k.serialize for p in post for k in p], clubnames=[c for p in club for c in p], usernames=[u for p in username for u in p])
 
 
 @app.route('/create/<int:ids>', methods=['GET', 'POST'])
@@ -53,6 +63,7 @@ def like(u_id, p_id):
         pos = session.query(Post).filter_by(user_id=u_id).all()
         return jsonify(posts=[i.serialize for i in pos])
 
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -65,6 +76,14 @@ def login():
         return jsonify({"value": 1})
     else:
         return jsonify({"value": 0})
+
+
+@app.route('/fetch/<int:u_id>/<int:c_id>/')
+def fet(u_id, c_id):
+    user = session.query(Users.name).filter_by(id=u_id).one()
+    club = session.query(Clubs.name).filter_by(id=c_id).one()
+    return jsonify(names=[user, club])
+
 
 if __name__ == '__main__':
     app.debug = True

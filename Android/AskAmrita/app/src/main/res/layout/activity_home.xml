@@ -10,19 +10,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
-            android:text="Home" />
+            android:text="Welcome to Amrita Forum App" />
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView"
+            android:id="@+id/list_item">
+        </ListView>
     </RelativeLayout>
-
-    <android.support.design.widget.NavigationView
+        <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

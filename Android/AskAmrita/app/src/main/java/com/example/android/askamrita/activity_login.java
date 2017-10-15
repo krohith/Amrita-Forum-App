@@ -30,7 +30,7 @@ import java.nio.charset.Charset;
 public class activity_login extends AppCompatActivity {
     private static final String site = "http://192.168.43.149:8080/login";
     Button login;
-    EditText rollNo, passKey;
+    static EditText rollNo, passKey;
     public static final String LOG_TAG = activity_login.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
