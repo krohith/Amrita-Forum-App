@@ -20,13 +20,7 @@ class Users(Base):
 
     @property
     def serialize(self):
-        return {
-            'name': self.name,
-            'roll': self.roll,
-            'id': self.id,
-            'password': self.password,
-            'privilege': self.privilege,
-        }
+        return dict(name=self.name, roll=self.roll, id=self.id, password=self.password, privilege=self.privilege)
 
 
 class Clubs(Base):
@@ -36,10 +30,7 @@ class Clubs(Base):
 
     @property
     def serialize(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-        }
+        return dict(id=self.id, name=self.name)
 
 
 class Subscription(Base):
@@ -53,12 +44,7 @@ class Subscription(Base):
 
     @property
     def serialize(self):
-        return {
-            'id': self.id,
-            'club_id': self.club_id,
-            'user_id': self.user_id
-
-        }
+        return dict(id=self.id, club_id=self.club_id, user_id=self.user_id)
 
 
 class Post(Base):
@@ -73,12 +59,7 @@ class Post(Base):
 
     @property
     def serialize(self):
-        return {
-            'id': self.id,
-            'content': self.content,
-            'user_id': self.user_id,
-            'likes': self.likes,
-        }
+        return dict(id=self.id, content=self.content, user_id=self.user_id, likes=self.likes)
 
 
 class Comment(Base):
@@ -95,14 +76,8 @@ class Comment(Base):
 
     @property
     def serialize(self):
-        return {
-            'id': self.id,
-            'content': self.content,
-            'created_date': self.created_date,
-            'user_id': self.user_id,
-            'post_id': self.post_id,
-            'likes': self.likes,
-        }
+        return dict(id=self.id, content=self.content, created_date=self.created_date, user_id=self.user_id,
+                    post_id=self.post_id, likes=self.likes)
 
 
 class ClubPost(Base):
@@ -119,14 +94,8 @@ class ClubPost(Base):
 
     @property
     def serialize(self):
-        return {
-            'id': self.id,
-            'content': self.content,
-            'created_date': self.created_date,
-            'user_id': self.user_id,
-            'likes': self.likes,
-            'club_id': self.club_id,
-        }
+        return dict(id=self.id, content=self.content, created_date=self.created_date, user_id=self.user_id,
+                    likes=self.likes, club_id=self.club_id)
 
 
 class ClubComment(Base):
@@ -142,14 +111,8 @@ class ClubComment(Base):
 
     @property
     def serialize(self):
-        return{
-            'id': self.id,
-            'content': self.content,
-            'created_date': self.created_date,
-            'user_id': self.user_id,
-            'likes': self.likes,
-            'clubpost_id': self.club_id,
-        }
+        return dict(id=self.id, content=self.content, created_date=self.created_date, user_id=self.user_id,
+                    likes=self.likes, clubpost_id=self.club_id)
 
 engine = create_engine('sqlite:///forum.db')
 Base.metadata.create_all(engine)

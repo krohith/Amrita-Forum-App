@@ -58,7 +58,7 @@ public class activity_home extends AppCompatActivity {
     }
     public class PostAsyncTask extends AsyncTask<URL,Void,String>{
         protected String doInBackground(URL... urls){
-            String site = "http://192.168.43.149:8080/subscription/"+rol+"/JSON";
+            String site = "http://amrita-forum-app.herokuapp.com/subscription/"+rol+"/JSON";
             URL ur = createUrl(site);
 
             String jsonResponse = "";
@@ -84,8 +84,10 @@ public class activity_home extends AppCompatActivity {
                 for(int i=0;i<arr.length();i++){
                     String content = arr.getJSONObject(i).getString("content");
                     JSONArray a = obj.getJSONArray("clubnames");
+                    JSONArray b = obj.getJSONArray("usernames");
+                    String c = b.getString(i);
                     String name = a.getString(i);
-                    Post v = new Post(name,content);
+                    Post v = new Post(name,content,c);
                     lis.add(v);
                 }
             } catch (JSONException e) {

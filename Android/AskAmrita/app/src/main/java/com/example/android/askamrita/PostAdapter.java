@@ -36,6 +36,8 @@ public class PostAdapter extends ArrayAdapter<Post>{
         name.setText(currentitem.getClubname());
         TextView con = (TextView) listItemView.findViewById(R.id.content);
         con.setText(currentitem.getContent());
+        TextView uname = (TextView) listItemView.findViewById(R.id.uname);
+        uname.setText(currentitem.getUsername());
         return listItemView;
 
     }
