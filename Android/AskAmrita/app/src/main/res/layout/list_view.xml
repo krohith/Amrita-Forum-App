@@ -8,22 +8,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/clubname"
-    android:gravity="center_horizontal"
-    android:paddingBottom="20dp"
     />
 <TextView
     android:paddingTop="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingBottom="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/uname"/>
-<TextView
-    android:paddingTop="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/content"
-    android:paddingBottom="70dp"/>
+    android:id="@+id/content" />
 
 </LinearLayout>

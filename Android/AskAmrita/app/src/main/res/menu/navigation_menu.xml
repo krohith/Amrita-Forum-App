@@ -14,5 +14,8 @@
         android:id="@+id/latest"
         android:title="Latest"
         />
-
+    <item
+        android:id="@+id/post"
+        android:title="Post"
+        />
 </menu>
