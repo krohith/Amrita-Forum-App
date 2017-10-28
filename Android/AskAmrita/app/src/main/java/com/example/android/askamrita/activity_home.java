@@ -11,15 +11,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,36 +36,39 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
     EditText roll;
+    Button btn;
     public String rol;
     public static final String LOG_TAG = activity_login.class.getSimpleName();
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         roll = (EditText) findViewById(R.id.rollNo);
-        rol = activity_login.rollNo.getText().toString();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(activity_home.this, activity_home.class);
+                Intent i = new Intent(activity_home.this, newpost.class);
                 startActivity(i);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        mDrawerlayout=(DrawerLayout) findViewById(R.id.sidebar);
-        mToggle=new ActionBarDrawerToggle(activity_home.this,mDrawerlayout,R.string.open,R.string.close);
+        rol = activity_login.rollNo.getText().toString().toUpperCase();
+        mDrawerlayout = (DrawerLayout) findViewById(R.id.sidebar);
+        mToggle = new ActionBarDrawerToggle(activity_home.this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         PostAsyncTask task = new PostAsyncTask();
         task.execute();
     }
-
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(mToggle.onOptionsItemSelected(item)){
@@ -70,8 +77,6 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -80,15 +85,15 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
             Intent i = new Intent(activity_home.this, activity_home.class);
             startActivity(i);
         } else if (id == R.id.forum) {
-            Intent i = new Intent(activity_home.this, activity_forum.class);
+            Intent i = new Intent(activity_home.this, ForumActivity.class);
             startActivity(i);
 
         } else if (id == R.id.latest) {
-            Intent i = new Intent(activity_home.this, activity_latest.class);
+            Intent i = new Intent(activity_home.this, LatestActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.post) {
-            Intent i = new Intent(activity_home.this, activity_post.class);
+        } else if (id == R.id.subscriptions) {
+            Intent i = new Intent(activity_home.this, SubscriptionActivity.class);
             startActivity(i);
         }
 
@@ -97,8 +102,6 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-
-
     public void updateUi(ArrayList<Post> post){
         PostAdapter newpos = new PostAdapter(this,post);
         ListView listView = (ListView)findViewById(R.id.list_item);
@@ -106,7 +109,7 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
     }
     public class PostAsyncTask extends AsyncTask<URL,Void,String>{
         protected String doInBackground(URL... urls){
-            String site = "http://192.168.43.149:8080/subscription/"+rol+"/JSON";
+            String site = "http://amrita-forum-app.herokuapp.com/subscription/"+rol+"/JSON";
             URL ur = createUrl(site);
 
             String jsonResponse = "";
@@ -132,8 +135,10 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
                 for(int i=0;i<arr.length();i++){
                     String content = arr.getJSONObject(i).getString("content");
                     JSONArray a = obj.getJSONArray("clubnames");
+                    JSONArray b = obj.getJSONArray("usernames");
+                    String c = b.getString(i);
                     String name = a.getString(i);
-                    Post v = new Post(name,content);
+                    Post v = new Post(name,content,c);
                     lis.add(v);
                 }
             } catch (JSONException e) {
@@ -144,7 +149,6 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         }
 
     }
-    ////////done by rohith
     private URL createUrl(String Stringurl) {
         URL ur = null;
         try{
@@ -155,7 +159,6 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         }
         return ur;
     }
-    //////////////done by rohith
     private String makeHttpRequest(URL url) throws IOException, JSONException {
         String jsonresponse = "";
         HttpURLConnection urlconnection = null;

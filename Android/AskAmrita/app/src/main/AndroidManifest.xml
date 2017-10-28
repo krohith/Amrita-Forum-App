@@ -19,9 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity_home" />
-        <activity android:name=".activity_latest" />
-        <activity android:name=".activity_forum" />
-        <activity android:name=".activity_post"></activity>
+        <activity android:name=".newpost" />
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".LatestActivity" />
+        <activity android:name=".SubscriptionActivity"></activity>
     </application>
 
 </manifest>

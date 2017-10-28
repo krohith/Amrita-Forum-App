@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +29,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 public class activity_login extends AppCompatActivity {
-    private static final String site = "http://192.168.43.149:8080/login";
+    public static String[] names;
+    private static final String site = "http://amrita-forum-app.herokuapp.com/login";
     Button login;
     static EditText rollNo, passKey;
     public static final String LOG_TAG = activity_login.class.getSimpleName();
@@ -75,7 +77,18 @@ public class activity_login extends AppCompatActivity {
             int check = 0;
             try {
                 JSONObject obj = new JSONObject(jsonResponse);
-                check = obj.getInt("value");
+                JSONObject auth = obj.getJSONObject("auth");
+                check = auth.getInt("value");
+                if(check == 1){
+                    JSONArray a = obj.getJSONArray("clubs");
+
+                    names = new String[a.length()];
+                    for(int i=0;i<a.length();i++){
+                        JSONObject name = a.getJSONObject(i);
+                        String n = name.getString("name");
+                        names[i] = n;
+                    }
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -91,6 +104,7 @@ public class activity_login extends AppCompatActivity {
             else{
                 Intent i = new Intent(activity_login.this, activity_home.class);
                 startActivity(i);
+                finish();
             }
 
         }
@@ -119,7 +133,7 @@ public class activity_login extends AppCompatActivity {
             urlConnection.connect();
             JSONObject data = new JSONObject();
 
-            data.put("roll",rollNo.getText().toString());
+            data.put("roll",rollNo.getText().toString().toUpperCase());
             data.put("password",passKey.getText().toString());
             OutputStream os = urlConnection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../../DB/.idea/DB.iml" filepath="$PROJECT_DIR$/../../DB/.idea/DB.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Database.iml" filepath="$PROJECT_DIR$/.idea/Database.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../ForumPostGre/.idea/ForumPostGre.iml" filepath="$PROJECT_DIR$/../../ForumPostGre/.idea/ForumPostGre.iml" />
     </modules>
   </component>
 </project>

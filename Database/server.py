@@ -1,8 +1,9 @@
+from dateutil import parser
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from forum_DBSetup import Base, Users, Clubs, Subscription, Post, Comment, ClubPost, ClubComment
-import datetime
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -21,17 +22,15 @@ def ksers():
 
 @app.route('/subscription/<ids>/JSON')
 def display(ids):
-    print ids
     user = session.query(Users).filter_by(roll=ids).one()
     clubs = session.query(Subscription.club_id).filter_by(user_id=user.id, value=1).all()
     post = []
     club = []
     username = []
-    print len(clubs)
     for i in clubs:
-        post.append(session.query(ClubPost).filter_by(club_id=i[0]).all())
-        c_id=session.query(ClubPost.club_id).filter_by(club_id=i[0]).all()
-        useid = session.query(ClubPost.user_id).filter_by(club_id=i[0]).all()
+        post.append(session.query(ClubPost).filter_by(club_id=i[0]).order_by(ClubPost.id.desc()).all())
+        c_id = session.query(ClubPost.club_id).filter_by(club_id=i[0]).order_by(ClubPost.id.desc()).all()
+        useid = session.query(ClubPost.user_id).filter_by(club_id=i[0]).order_by(ClubPost.id.desc()).all()
         for u in useid:
             username.append(session.query(Users.name).filter_by(id=u[0]).one())
         for c in c_id:
@@ -39,17 +38,20 @@ def display(ids):
     return jsonify(post=[k.serialize for p in post for k in p], clubnames=[c for p in club for c in p], usernames=[u for p in username for u in p])
 
 
-@app.route('/create/<int:ids>', methods=['GET', 'POST'])
-def newPost(ids):
+@app.route('/create/<ids>/<cds>', methods=['GET', 'POST'])
+def newPost(ids,cds):
     if request.method == 'POST':
         data = request.json
-        newp = Post(content=data['content'], user_id=ids, likes=0,
-                    created_date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        print data
+        u_id = session.query(Users.id).filter_by(roll=ids).one()
+        c_id = session.query(Clubs.id).filter_by(name=cds).one()
+        newp = ClubPost(content=data['content'], user_id=u_id[0], club_id=c_id[0], likes=0, created_date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         session.add(newp)
         session.commit()
-    else:
-        pos = session.query(Post).filter_by(user_id=ids).all()
-        return jsonify(posts=[i.serialize for i in pos])
+        return display(ids)
+    # else:
+    #     pos = session.query(Post).filter_by(user_id=ids).all()
+    #     return jsonify(posts=[i.serialize for i in pos])
 
 
 @app.route('/<int:u_id>/<int:p_id>', methods=['GET', 'POST'])
@@ -67,15 +69,19 @@ def like(u_id, p_id):
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
-    print data
     isthere = session.query(Users).filter_by(roll=data['roll']).first()
 
     if isthere is None:
-        return jsonify({"value": 0})
+        return jsonify(auth={"value": 0})
     elif isthere.password == data['password']:
-        return jsonify({"value": 1})
+        clubssubs = session.query(Subscription).filter_by(user_id=isthere.id, value=1).all()
+        clubs = []
+        for i in clubssubs:
+            clubs.append(session.query(Clubs).filter_by(id=i.club_id).one())
+        s = {"value": 1}
+        return jsonify(clubs=[i.serialize for i in clubs], auth=s)
     else:
-        return jsonify({"value": 0})
+        return jsonify(auth={"value": 0})
 
 
 @app.route('/fetch/<int:u_id>/<int:c_id>/')

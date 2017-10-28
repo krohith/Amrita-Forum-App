@@ -2,20 +2,35 @@
 <menu
  xmlns:android="http://schemas.android.com/apk/res/android">
 
-<item
-     android:id="@+id/home"
-        android:title="Home"
-    />
-    <item
-        android:id="@+id/forum"
-        android:title="Forums"
-        />
-    <item
-        android:id="@+id/latest"
-        android:title="Latest"
-        />
-    <item
-        android:id="@+id/post"
-        android:title="Post"
-        />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+
+            android:title="Home" />
+        <item
+            android:id="@+id/latest"
+
+            android:title="Latest" />
+        <item
+            android:id="@+id/forum"
+
+            android:title="Forum" />
+        <item
+            android:id="@+id/subscriptions"
+
+            android:title="Subscriptions" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+
+                android:title="Send" />
+        </menu>
+    </item>
 </menu>
