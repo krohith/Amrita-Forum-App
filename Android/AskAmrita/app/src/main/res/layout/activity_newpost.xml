@@ -5,35 +5,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sidebar4"
     xmlns:tools="http://schemas.android.com/tools">
-    <EditText
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:hint="Whats on your mind?"
-        android:layout_margin="64dp"
-        android:id="@+id/conten"/>
-    <LinearLayout
+       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <Button
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Post"
-            android:layout_gravity="bottom"
-
-            android:background="#4bcbcc"
-            android:id="@+id/postbtn"/>
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:tag="CLUBS"
-            android:id="@+id/spin">
-        </Spinner>
-    </LinearLayout>
+        android:orientation="vertical">
+           <EditText
+               android:layout_marginTop="50dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="#000000"
+               android:hint="Whats on your mind?"
+               android:id="@+id/conten"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <Button
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Post"
+                android:background="#4bcbcc"
+                android:id="@+id/postbtn"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:tag="CLUBS"
+                android:id="@+id/spin">
+            </Spinner>
+        </LinearLayout>
+               </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"

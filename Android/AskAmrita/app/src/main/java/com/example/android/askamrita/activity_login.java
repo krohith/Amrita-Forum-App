@@ -30,6 +30,7 @@ import java.nio.charset.Charset;
 
 public class activity_login extends AppCompatActivity {
     public static String[] names;
+    static String user;
     private static final String site = "http://amrita-forum-app.herokuapp.com/login";
     Button login;
     static EditText rollNo, passKey;
@@ -77,6 +78,7 @@ public class activity_login extends AppCompatActivity {
             int check = 0;
             try {
                 JSONObject obj = new JSONObject(jsonResponse);
+                user = obj.getString("user");
                 JSONObject auth = obj.getJSONObject("auth");
                 check = auth.getInt("value");
                 if(check == 1){

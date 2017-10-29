@@ -22,7 +22,8 @@
         <activity android:name=".newpost" />
         <activity android:name=".ForumActivity" />
         <activity android:name=".LatestActivity" />
-        <activity android:name=".SubscriptionActivity"></activity>
+        <activity android:name=".SubscriptionActivity" />
+        <activity android:name=".forumpost"></activity>
     </application>
 
 </manifest>

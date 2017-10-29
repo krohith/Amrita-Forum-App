@@ -11,12 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -36,6 +38,8 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
     EditText roll;
+    TextView headroll;
+    TextView username;
     Button btn;
     public String rol;
     public static final String LOG_TAG = activity_login.class.getSimpleName();
@@ -46,6 +50,8 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         roll = (EditText) findViewById(R.id.rollNo);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +63,10 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
             }
         });
         rol = activity_login.rollNo.getText().toString().toUpperCase();
+        headroll = (TextView) header.findViewById(R.id.roll);
+        headroll.setText(rol);
+        username = (TextView) header.findViewById(R.id.nam);
+        username.setText(activity_login.user);
         mDrawerlayout = (DrawerLayout) findViewById(R.id.sidebar);
         mToggle = new ActionBarDrawerToggle(activity_home.this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
