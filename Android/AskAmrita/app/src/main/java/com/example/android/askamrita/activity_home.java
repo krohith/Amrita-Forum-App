@@ -2,6 +2,7 @@ package com.example.android.askamrita;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -47,7 +48,7 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
     TextView headroll;
     TextView username;
     Button btn;
-    public String rol;
+    public static String rol;
     TextView upvotes;
     String ups;
     String k;
@@ -130,6 +131,7 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         return true;
     }
     public void handler(View v){
+        Button b = (Button) v;
         LinearLayout m = (LinearLayout)v.getParent();
         LinearLayout r = (LinearLayout)m.getParent();
         LinearLayout e = (LinearLayout)r.getChildAt(3);
@@ -137,9 +139,16 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         ups = up.getText().toString();
         TextView id = (TextView)m.getChildAt(2);
         k = id.getText().toString();
-        clicks+=1;
         int a = Integer.parseInt(ups);
-        up.setText(Integer.toString(a+1));
+        if(b.getText().equals("Upvoted")) {
+            b.setText("Upvote");
+            a--;
+        }
+        else{
+            b.setText("Upvoted");
+            a++;
+        }
+        up.setText(Integer.toString(a));
         upvoteAsyncTask task = new upvoteAsyncTask();
         task.execute();
     }
@@ -175,14 +184,22 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
                 JSONArray arr = obj.getJSONArray("post");
                 JSONArray a = obj.getJSONArray("clubnames");
                 JSONArray b = obj.getJSONArray("usernames");
+                JSONArray d = obj.getJSONArray("value");
                 for(int i=0;i<arr.length();i++){
+                    JSONObject text = d.getJSONObject(i);
+                    int tex = text.getInt("value");
+                    String t;
+                    if(tex==0)
+                        t = "Upvote";
+                    else
+                        t="Upvoted";
                     String content = arr.getJSONObject(i).getString("content");
                     int likes =  arr.getJSONObject(i).getInt("likes");
                     String lik = Integer.toString(likes);
                     String c = b.getString(i);
                     String name = a.getString(i);
                     String id = Integer.toString(arr.getJSONObject(i).getInt("id"));
-                    Post v = new Post(name,content,c,lik,id);
+                    Post v = new Post(name,content,c,lik,id,t);
                     lis.add(v);
                 }
             } catch (JSONException e) {
@@ -236,7 +253,7 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
 
         @Override
         protected Void doInBackground(URL... params) {
-            String site = "http://amrita-forum-app.herokuapp.com/clubpost/"+k;
+            String site = "http://amrita-forum-app.herokuapp.com/clubpost/"+k+"/"+rol.toUpperCase();
             URL ur = createUrl(site);
 
 
@@ -252,42 +269,16 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
         }
     }
     private void httprequest(URL ur) throws IOException {
-        HttpURLConnection urlconnect = null;
-        String jsonResponse = null;
-        urlconnect = (HttpURLConnection) ur.openConnection();
-        urlconnect.setRequestMethod("POST");
-        urlconnect.setDoOutput(true);
-        urlconnect.setReadTimeout(10000);
-        urlconnect.setConnectTimeout(15000);
-        urlconnect.setRequestProperty("Content-Type","application/json");
-        urlconnect.setRequestProperty("Accept","application/json");
-        urlconnect.connect();
-        JSONObject data = new JSONObject();
-        try {
-            data.put("value", 1);
-        }catch (JSONException e) {
-            e.printStackTrace();
-        }
-        OutputStream os = urlconnect.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-        writer.write(data.toString());
-        writer.close();
-        os.close();
-        int responsecode = urlconnect.getResponseCode();
-        Log.v(LOG_TAG,"Response Code :: "+responsecode);
-//                inputStream = urlConnection.getInputStream();
-//            StringBuilder output = new StringBuilder();
-//            if (inputStream != null) {
-//                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-//                BufferedReader reader = new BufferedReader(inputStreamReader);
-//                String line = reader.readLine();
-//                while (line != null) {
-//                    output.append(line);
-//                    line = reader.readLine();
-//                }
-//            }
+        String jsonresponse = "";
+        HttpURLConnection urlconnection = null;
+        urlconnection = (HttpURLConnection) ur.openConnection();
+        urlconnection.setRequestMethod("GET");
+        urlconnection.setReadTimeout(10000 /* milliseconds */);
+        urlconnection.setConnectTimeout(15000 /* milliseconds */);
+        urlconnection.connect();
+        int responsecode = urlconnection.getResponseCode();
         if (responsecode == HttpURLConnection.HTTP_OK) { //success
-            BufferedReader in = new BufferedReader(new InputStreamReader(urlconnect.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(urlconnection.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
 
@@ -295,12 +286,13 @@ public class activity_home extends AppCompatActivity implements NavigationView.O
                 response.append(inputLine);
             }
             in.close();
-            jsonResponse = response.toString();
+            jsonresponse = response.toString();
             // print result
             Log.v(LOG_TAG, response.toString());
         } else {
-            Log.v(LOG_TAG, "POST request did not work.");
+            Log.e(LOG_TAG, "Error with GET request");
         }
-
+        if (urlconnection != null)
+            urlconnection.disconnect();
     }
 }

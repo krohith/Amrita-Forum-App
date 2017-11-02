@@ -10,12 +10,14 @@ public class Post {
     String username;
     String num;
     String id;
-    public Post(String clubname,String content,String username,String num,String id){
+    String button;
+    public Post(String clubname,String content,String username,String num,String id,String button){
         this.clubname=clubname;
         this.content=content;
         this.username=username;
         this.num = num;
         this.id =id;
+        this.button=button;
     }
     String getClubname(){
         return this.clubname;
@@ -28,4 +30,5 @@ public class Post {
     }
     String getNum(){return this.num;}
     String getid(){return this.id;}
+    String getButton(){return this.button;}
 }

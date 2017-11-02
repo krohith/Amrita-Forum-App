@@ -95,7 +95,7 @@ public class ForumActivity extends AppCompatActivity implements NavigationView.O
     }
     public class ForumAsyncTask extends AsyncTask<URL,Void,String>{
         protected String doInBackground(URL... urls){
-            String sie = "http://amrita-forum-app.herokuapp.com/forum";
+            String sie = "http://amrita-forum-app.herokuapp.com/forum/"+activity_home.rol.toUpperCase();
             URL ur = createUrl(sie);
 
             String jsonResponse = "";
