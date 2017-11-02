@@ -70,10 +70,7 @@ def like(p_id):
 def clublike(p_id):
     data = request.json
     post = session.query(ClubPost).filter_by(id=p_id).one()
-    if data['value'] == 0:
-        post.likes += 1
-    else:
-        post.likes -= 1
+    post.likes += 1
     session.commit()
     return ksers()
 

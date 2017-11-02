@@ -27,13 +27,20 @@
             android:layout_alignParentRight="true"
             app:srcCompat="@android:drawable/ic_dialog_email"
             />
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_margin="32dp"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView"
-            android:id="@+id/list_item">
-        </ListView>
+            android:id="@+id/swiperefresh"
+            android:layout_margin="20dp">
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_margin="32dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView"
+                android:id="@+id/list_item">
+            </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

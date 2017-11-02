@@ -38,6 +38,10 @@ public class PostAdapter extends ArrayAdapter<Post>{
         con.setText(currentitem.getContent());
         TextView uname = (TextView) listItemView.findViewById(R.id.uname);
         uname.setText(currentitem.getUsername());
+        TextView num = (TextView) listItemView.findViewById(R.id.num);
+        num.setText(currentitem.getNum());
+        TextView id = (TextView) listItemView.findViewById(R.id.postid);
+        id.setText(currentitem.getid());
         return listItemView;
 
     }

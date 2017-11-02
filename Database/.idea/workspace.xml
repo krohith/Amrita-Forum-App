@@ -3,17 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="27c9d672-6aac-45e6-b64f-5e77aea6802f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forum.db" afterPath="$PROJECT_DIR$/forum.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/ForumActivity.java" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/ForumActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/SubscriptionActivity.java" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/SubscriptionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/activity_home.java" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/activity_home.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/activity_login.java" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/activity_login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_forum.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_forum.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_home.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_home.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_newpost.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_newpost.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_subscription.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/activity_subscription.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/nav_header_main.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/nav_header_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/menu/navigation_menu.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/menu/navigation_menu.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/Post.java" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/Post.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/PostAdapter.java" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/java/com/example/android/askamrita/PostAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/post_view.xml" afterPath="$PROJECT_DIR$/../Android/AskAmrita/app/src/main/res/layout/post_view.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.py" afterPath="$PROJECT_DIR$/server.py" />
     </list>
@@ -29,8 +22,8 @@
       <file leaf-file-name="server.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2916">
-              <caret line="162" column="0" lean-forward="true" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+            <state relative-caret-position="239">
+              <caret line="75" column="23" lean-forward="false" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
               <folding>
                 <element signature="e#0#77#0" expanded="true" />
               </folding>
@@ -51,7 +44,7 @@
       <file leaf-file-name="forum_DBSetup.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/forum_DBSetup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1687">
+            <state relative-caret-position="-1224">
               <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -105,8 +98,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -126,6 +117,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -194,18 +187,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="486" y="-4" width="1303" height="780" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32669324" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33227092" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.50677294" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32970452" sideWeight="0.4932271" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.49721116" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281493" sideWeight="0.49243027" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.4932271" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988048" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -632,7 +624,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/forum_DBSetup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1687">
+        <state relative-caret-position="-1224">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -642,8 +634,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2916">
-          <caret line="162" column="0" lean-forward="true" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+        <state relative-caret-position="239">
+          <caret line="75" column="23" lean-forward="false" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
           <folding>
             <element signature="e#0#77#0" expanded="true" />
           </folding>
